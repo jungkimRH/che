@@ -45,6 +45,19 @@ if (BASE_TEST_CONSTANTS.OCP_INFRA == "IBM Z" || BASE_TEST_CONSTANTS.OCP_INFRA ==
 	ibm_infra = true
 }
 
+if (BASE_TEST_CONSTANTS.OCP_INFRA === "IBM Z") {
+    // Test for IBM Z
+    test('Check OCP_INFRA for IBM Z', async function (): Promise<void> {
+        // If OCP_INFRA is IBM Z, the test passes
+        assert.strictEqual(BASE_TEST_CONSTANTS.OCP_INFRA, "IBM Z", "OCP_INFRA is not IBM Z");
+    });
+} else {
+    // If OCP_INFRA is not IBM Z, fail the test
+    test('Check OCP_INFRA for IBM Z', async function (): Promise<void> {
+        assert.fail(BASE_TEST_CONSTANTS.OCP_INFRA, "IBM Z", "OCP_INFRA is not IBM Z");
+    });
+}
+
 for (const sample of samples) {
 
 	if (ibm_infra && sample === "Ansible") {
