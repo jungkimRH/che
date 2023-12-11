@@ -49,12 +49,13 @@ if (BASE_TEST_CONSTANTS.OCP_INFRA === "IBM Z") {
     // Test for IBM Z
     test('Check OCP_INFRA for IBM Z', async function (): Promise<void> {
         // If OCP_INFRA is IBM Z, the test passes
-        assert.strictEqual(BASE_TEST_CONSTANTS.OCP_INFRA, "IBM Z", "OCP_INFRA is not IBM Z");
+        expect(BASE_TEST_CONSTANTS.OCP_INFRA).to.equal("IBM Z");
     });
 } else {
     // If OCP_INFRA is not IBM Z, fail the test
     test('Check OCP_INFRA for IBM Z', async function (): Promise<void> {
-        assert.fail(BASE_TEST_CONSTANTS.OCP_INFRA, "IBM Z", "OCP_INFRA is not IBM Z");
+        // Fail the test with a custom message
+        throw new Error("OCP_INFRA is not IBM Z");
     });
 }
 
