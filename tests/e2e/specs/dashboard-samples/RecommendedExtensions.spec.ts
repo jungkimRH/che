@@ -39,6 +39,10 @@ import { Dashboard } from '../../pageobjects/dashboard/Dashboard';
 
 const samples: string[] = PLUGIN_TEST_CONSTANTS.TS_SAMPLE_LIST.split(',');
 
+if (BASE_TEST_CONSTANTS.OCP_INFRA == "IBM Z" || BASE_TEST_CONSTANTS.OCP_INFRA == "IBM Power") {
+	samples.pop();
+}
+
 for (const sample of samples) {
 	suite(`Check if recommended extensions installed for ${sample} ${BASE_TEST_CONSTANTS.TEST_ENVIRONMENT}`, function (): void {
 		const projectAndFileTests: ProjectAndFileTests = e2eContainer.get(CLASSES.ProjectAndFileTests);
