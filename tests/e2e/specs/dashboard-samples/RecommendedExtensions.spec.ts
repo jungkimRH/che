@@ -39,11 +39,18 @@ import { Dashboard } from '../../pageobjects/dashboard/Dashboard';
 
 const samples: string[] = PLUGIN_TEST_CONSTANTS.TS_SAMPLE_LIST.split(',');
 
+let ibm_infra = false;
+
 if (BASE_TEST_CONSTANTS.OCP_INFRA == "IBM Z" || BASE_TEST_CONSTANTS.OCP_INFRA == "IBM Power") {
-	samples.pop();
+	ibm_infra = true
 }
 
 for (const sample of samples) {
+
+	if (ibm_infra && sample === "Ansible") {
+		continue;
+	}
+
 	suite(`Check if recommended extensions installed for ${sample} ${BASE_TEST_CONSTANTS.TEST_ENVIRONMENT}`, function (): void {
 		const projectAndFileTests: ProjectAndFileTests = e2eContainer.get(CLASSES.ProjectAndFileTests);
 		const workspaceHandlingTests: WorkspaceHandlingTests = e2eContainer.get(CLASSES.WorkspaceHandlingTests);
