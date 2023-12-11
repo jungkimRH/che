@@ -45,25 +45,7 @@ if (BASE_TEST_CONSTANTS.OCP_INFRA == "IBM Z" || BASE_TEST_CONSTANTS.OCP_INFRA ==
 	ibm_infra = true
 }
 
-if (BASE_TEST_CONSTANTS.OCP_INFRA === "IBM Z") {
-    // Test for IBM Z
-    test('Check OCP_INFRA for IBM Z', async function (): Promise<void> {
-        // If OCP_INFRA is IBM Z, the test passes
-        expect(BASE_TEST_CONSTANTS.OCP_INFRA).to.equal("IBM Z");
-    });
-} else {
-    // If OCP_INFRA is not IBM Z, fail the test
-    test('Check OCP_INFRA for IBM Z', async function (): Promise<void> {
-        // Fail the test with a custom message
-        throw new Error("OCP_INFRA is not IBM Z");
-    });
-}
-
 for (const sample of samples) {
-
-	if (ibm_infra && sample === "Ansible") {
-		continue;
-	}
 
 	suite(`Check if recommended extensions installed for ${sample} ${BASE_TEST_CONSTANTS.TEST_ENVIRONMENT}`, function (): void {
 		const projectAndFileTests: ProjectAndFileTests = e2eContainer.get(CLASSES.ProjectAndFileTests);
@@ -84,6 +66,20 @@ for (const sample of samples) {
 		let recommendedExtensions: any = {
 			recommendations: []
 		};
+
+		if (OCP_INFRA=== "IBM Z") {
+			// Test for IBM Z
+			test('Check OCP_INFRA for IBM Z', async function (): Promise<void> {
+				// If OCP_INFRA is IBM Z, the test passes
+				expect(OCP_INFRA).to.equal("IBM Z");
+			});
+		} else {
+			// If OCP_INFRA is not IBM Z, fail the test
+			test('Check OCP_INFRA for IBM Z', async function (): Promise<void> {
+				// Fail the test with a custom message
+				throw new Error("OCP_INFRA is not IBM Z");
+			});
+		}
 
 		suiteSetup('Login', async function (): Promise<void> {
 			await loginTests.loginIntoChe();
